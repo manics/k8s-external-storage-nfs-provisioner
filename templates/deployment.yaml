@@ -54,6 +54,9 @@ spec:
           volumeMounts:
             - name: export-volume
               mountPath: /export
+            {{- if .Values.storage.subPath }}
+              subPath: {{ .Values.storage.subPath }}
+            {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

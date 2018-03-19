@@ -23,5 +23,6 @@ rbac:
 storage:
   type: pvc
   pvcName: external-storage-nfs-provisioner
+  subPath:
   # Required if type=hostPath:
   hostPath:
