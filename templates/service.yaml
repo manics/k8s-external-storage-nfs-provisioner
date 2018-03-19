@@ -1,0 +1,25 @@
+# https://github.com/kubernetes-incubator/external-storage/blob/233b44b89dee15d9ec4ba2e084abb74735a60909/nfs/deploy/kubernetes/deployment.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "nfs-provisioner.fullname" . }}
+  labels:
+    app: {{ template "nfs-provisioner.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: nfs
+      port: 2049
+    - name: mountd
+      port: 20048
+    - name: rpcbind
+      port: 111
+    - name: rpcbind-udp
+      port: 111
+      protocol: UDP
+  selector:
+    app: {{ template "nfs-provisioner.name" . }}
+    release: {{ .Release.Name }}

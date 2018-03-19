@@ -1,0 +1,11 @@
+# https://github.com/kubernetes-incubator/external-storage/blob/233b44b89dee15d9ec4ba2e084abb74735a60909/nfs/deploy/kubernetes/class.yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ .Values.storageClassName }}
+  labels:
+    app: {{ template "nfs-provisioner.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+provisioner: {{ .Values.provisionerId }}

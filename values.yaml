@@ -1,0 +1,27 @@
+# Default values for nfs-provisioner.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/kubernetes_incubator/nfs-provisioner
+  tag: v1.0.9
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+
+storageClassName: external-storage-nfs-provisioner
+provisionerId: kubernetes-incubator/external-storage-nfs
+
+rbac:
+  enabled: true
+
+storage:
+  type: pvc
+  pvcName: external-storage-nfs-provisioner
+  # Required if type=hostPath:
+  hostPath:

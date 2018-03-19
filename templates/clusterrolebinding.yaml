@@ -1,0 +1,20 @@
+#https://github.com/kubernetes-incubator/external-storage/blob/233b44b89dee15d9ec4ba2e084abb74735a60909/nfs/deploy/kubernetes/auth/clusterrolebinding.yaml
+{{- if .Values.rbac.enabled }}
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "nfs-provisioner.fullname" . }}
+  labels:
+    app: {{ template "nfs-provisioner.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "nfs-provisioner.fullname" . }}
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: {{ template "nfs-provisioner.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
